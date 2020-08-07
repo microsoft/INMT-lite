@@ -9,7 +9,7 @@ Table of Contents
 =================
   * [Requirements](#requirements)
   * [Quickstart](#quickstart)
-  * [INMT-mobile](# INMT-Mobile)
+  * [INMT-mobile](#INMT-Mobile)
    * [Acknowledgements](#acknowledgements)
 ## Requirements
 
