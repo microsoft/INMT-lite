@@ -1,0 +1,4 @@
+#Fri Aug 07 13:29:05 IST 2020
+base.0=/home/anurag/Projects/Machine_Translation/Custom Model/INMT_OFFLINE/Android/app/build/intermediates/dex/debug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">INMT Mobile</string>
+    <string name="INMT_URL">INMT_API_BASE_URL</string>
+</resources>
