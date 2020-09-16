@@ -1,3 +1,2 @@
 numpy==1.18.1
 tf-nightly==2.4.0.dev20200716
-unicodedata
