@@ -35,16 +35,16 @@
             android:id="@+id/inp_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="0.8"
             android:ems="10"
-            android:hint="HinEnglishdi Sentence"
+            android:hint="Source Sentence"
             android:inputType="textPersonName"
             android:text="he is a good boy"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="24sp"
-            android:alpha="0.8"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <AutoCompleteTextView
@@ -52,9 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Hindi Sentence"
+            android:hint="Target Sentence"
             android:inputType="textMultiLine"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/button2"
