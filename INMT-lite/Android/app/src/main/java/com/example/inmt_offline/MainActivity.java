@@ -117,79 +117,80 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("OFFLINE_MODE", offline_mode+"");
 
                         if (offline_mode) {
+                            try {
 
-                            Boolean applyMask = false;// at model's index 2
+                                Boolean applyMask = false;// at model's index 2
 
-                            for (int i = 0; i < mask[0].length; i++) mask[0][i] = 1;
+                                for (int i = 0; i < mask[0].length; i++) mask[0][i] = 1;
 
 
-                            Log.i("Len vocab:", tgt_tokenizer.size() + "");
+                                Log.i("Len vocab:", tgt_tokenizer.size() + "");
 
-                            if (tgt_string.length() > 1)
-                                if (tgt_string.charAt(tgt_string.length() - 1) != ' ') {
-                                    applyMask = true;
-                                }
+                                if (tgt_string.length() > 1)
+                                    if (tgt_string.charAt(tgt_string.length() - 1) != ' ') {
+                                        applyMask = true;
+                                    }
 
-                            final String[] tgt_words = tgt_string.split(" ");
-                            String[] inp_words = inp_string.split(" ");
+                                final String[] tgt_words = tgt_string.split(" ");
+                                String[] inp_words = inp_string.split(" ");
 
-                            int inp_wordsLength = inp_words.length;
-                            int tgt_wordsLength = tgt_words.length;
+                                int inp_wordsLength = inp_words.length;
+                                int tgt_wordsLength = tgt_words.length;
 
 //                        float[][] inp_inputArray = getArray(inp_words, inp_wordsLength, inp_tokenizer);
 
-                            int Tx = 14;
-                            float[][] inp_inputArray = new float[1][Tx];
+                                int Tx = 14;
+                                float[][] inp_inputArray = new float[1][Tx];
 
-                            inp_inputArray[0][0] = 2;
-                            int mini = inp_wordsLength;
-                            if (mini > Tx - 1) {
-                                mini = Tx - 1;
-                            }
-                            for (int i = 1; i <= mini; i++) {
-                                inp_inputArray[0][i] = getTokenNumber(inp_tokenizer, inp_words[i - 1]);
-                            }
+                                inp_inputArray[0][0] = 2;
+                                int mini = inp_wordsLength;
+                                if (mini > Tx - 1) {
+                                    mini = Tx - 1;
+                                }
+                                for (int i = 1; i <= mini; i++) {
+                                    inp_inputArray[0][i] = getTokenNumber(inp_tokenizer, inp_words[i - 1]);
+                                }
 
-                            if (mini + 1 < Tx) {
-                                inp_inputArray[0][mini + 1] = 3;
-                            }
+                                if (mini + 1 < Tx) {
+                                    inp_inputArray[0][mini + 1] = 3;
+                                }
 
 
-                            float[][] tgt_inputArray = new float[1][Tx];
+                                float[][] tgt_inputArray = new float[1][Tx];
 //                        tgt_inputArray = getArray(tgt_words, tgt_wordsLength, tgt_tokenizer);
 
-                            int w_i = tgt_wordsLength - 1;
-                            if (applyMask)
-                                w_i -= 1; // Do not consider last word when mask is applied
-                            int index = Tx - 1;
-                            while (w_i >= 0 && index >= 1) {
-                                tgt_inputArray[0][index] = getTokenNumber(tgt_tokenizer, tgt_words[w_i]);
-                                w_i--;
-                                index--;
-                            }
+                                int w_i = tgt_wordsLength - 1;
+                                if (applyMask)
+                                    w_i -= 1; // Do not consider last word when mask is applied
+                                int index = Tx - 1;
+                                while (w_i >= 0 && index >= 1) {
+                                    tgt_inputArray[0][index] = getTokenNumber(tgt_tokenizer, tgt_words[w_i]);
+                                    w_i--;
+                                    index--;
+                                }
 
-                            Log.i("APPLY_MASK_VALUE", applyMask + "");
+                                Log.i("APPLY_MASK_VALUE", applyMask + "");
 
-                            if (applyMask) {
-                                for (int i = 0; i < tgt_tokenizer.size(); i++) {
-                                    Boolean check = Normalizer.normalize(tgt_tokenizer.get(i), Normalizer.Form.NFD).startsWith(Normalizer.normalize(tgt_words[tgt_words.length - 1], Normalizer.Form.NFD));
-                                    if (!check) {
-                                        mask[0][i + 1] = 0;
-                                    } else {
-                                        Log.i("starts with ::", tgt_words[tgt_words.length - 1] + " " + check + " " + tgt_tokenizer.get(i));
+                                if (applyMask) {
+                                    for (int i = 0; i < tgt_tokenizer.size(); i++) {
+                                        Boolean check = Normalizer.normalize(tgt_tokenizer.get(i), Normalizer.Form.NFD).startsWith(Normalizer.normalize(tgt_words[tgt_words.length - 1], Normalizer.Form.NFD));
+                                        if (!check) {
+                                            mask[0][i + 1] = 0;
+                                        } else {
+                                            Log.i("starts with ::", tgt_words[tgt_words.length - 1] + " " + check + " " + tgt_tokenizer.get(i));
+                                        }
                                     }
                                 }
-                            }
 
-                            Log.i("tgt_words_len", tgt_words.length + "");
+                                Log.i("tgt_words_len", tgt_words.length + "");
 
-                            for (int i = 0; i < tgt_words.length; i++)
-                                Log.i("tgt_words", tgt_words[i]);
+                                for (int i = 0; i < tgt_words.length; i++)
+                                    Log.i("tgt_words", tgt_words[i]);
 
-                            if (applyMask) {
-                                Log.i("mask_bool check", applyMask + "");
-                                Log.i("whole_mask", Arrays.toString(mask[0]));
-                            }
+                                if (applyMask) {
+                                    Log.i("mask_bool check", applyMask + "");
+                                    Log.i("whole_mask", Arrays.toString(mask[0]));
+                                }
 
 
 //                        int dist = 0;
@@ -206,36 +207,39 @@ public class MainActivity extends AppCompatActivity {
 //                        }
 
 
-                            res[0] = runModel(inp_inputArray, tgt_inputArray, mask);
-                            final String curr = tgt_userInput.getText().toString();
-                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, res[0]);
+                                res[0] = runModel(inp_inputArray, tgt_inputArray, mask);
+                                final String curr = tgt_userInput.getText().toString();
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, res[0]);
 
-                            final Boolean finalApplyMask = applyMask;
-                            tgt_userInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Log.i("tgt_words_listner", Arrays.toString(tgt_words));
-                                    String to_set = "";
-                                    if (finalApplyMask) {
-                                        for (int i = 0; i < tgt_words.length - 1; i++) {
-                                            to_set += tgt_words[i] + " ";
+                                final Boolean finalApplyMask = applyMask;
+                                tgt_userInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Log.i("tgt_words_listner", Arrays.toString(tgt_words));
+                                        String to_set = "";
+                                        if (finalApplyMask) {
+                                            for (int i = 0; i < tgt_words.length - 1; i++) {
+                                                to_set += tgt_words[i] + " ";
+                                            }
+                                        } else {
+                                            for (String s : tgt_words) {
+                                                to_set += s + " ";
+                                            }
                                         }
-                                    } else {
-                                        for (String s : tgt_words) {
-                                            to_set += s + " ";
-                                        }
+                                        to_set += res[0].get(position) + " ";
+                                        tgt_userInput.setText(to_set);
+                                        tgt_userInput.setSelection(to_set.length());
                                     }
-                                    to_set += res[0].get(position) + " ";
-                                    tgt_userInput.setText(to_set);
-                                    tgt_userInput.setSelection(to_set.length());
-                                }
-                            });
+                                });
 
 
-                            tgt_userInput.setAdapter(arrayAdapter);
+                                tgt_userInput.setAdapter(arrayAdapter);
 
 
-                            tgt_userInput.showDropDown();
+                                tgt_userInput.showDropDown();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         }
                         else {

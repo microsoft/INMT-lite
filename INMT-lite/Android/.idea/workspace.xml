@@ -30,7 +30,7 @@
     </system>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectId" id="1dm5LbQ1uZyQaPUapt3L75S6gxb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -38,7 +38,7 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="RZ8M91XBC0M" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-06-29T15:30:55.940Z" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.0" />
