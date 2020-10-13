@@ -1,4 +1,4 @@
-package com.example.inmt_offline;
+package com.example.inmt_offline.UI;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.inmt_offline.R;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.io.FileInputStream;
@@ -48,7 +49,7 @@ import org.tensorflow.lite.Interpreter;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-public class MainActivity extends AppCompatActivity {
+public class TranslationActivity extends AppCompatActivity {
 
 
     private Interpreter tfLite;
@@ -395,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadJson() {
 
-        ProgressDialog pd = new ProgressDialog(MainActivity.this);
+        ProgressDialog pd = new ProgressDialog(TranslationActivity.this);
 
         pd.setMessage("Loading Data..");
 
@@ -421,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
     public String loadJSONFromAsset(String name) {
         String json = null;
         try {
-            InputStream is = MainActivity.this.getAssets().open(name);
+            InputStream is = TranslationActivity.this.getAssets().open(name);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

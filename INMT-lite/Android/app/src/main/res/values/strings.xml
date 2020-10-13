@@ -1,4 +1,34 @@
 <resources>
     <string name="app_name">INMT Mobile</string>
     <string name="INMT_URL">INMT_API_BASE_URL</string>
+    <string name="project_name">INMT-Mobile</string>
+    <string name="sampleEnglishString">He is a good boy. He loves to read books.</string>
+    <string name="sampleHindiString">आज मौसम सुहावना है। हमें शाम को बाहर जाना चाहिए।</string>
+    <string name="typing_hint">Start typing here...</string>
+    <string name="BASE_URL">ENTER YOUR URL HERE</string>
+
+    <string-array name="Modes">
+        <item>OFFLINE</item>
+        <item>ONLINE</item>
+    </string-array>
+
+    <string-array name="offlineTransOPs">
+        <item>English-Hindi</item>
+    </string-array>
+
+    <string-array name="onlineTransOPs">
+        <item>English-Hindi</item>
+        <item>Hindi-English</item>
+        <item>Hindi-Gondi</item>
+    </string-array>
+
+    <string-array name="lang_spec_code_offline">
+        <item>en-hi</item>
+    </string-array>
+
+    <string-array name="lang_spec_codes_online">
+        <item>en-hi</item>
+        <item>hi-en</item>
+        <item>hi-gondi</item>
+    </string-array>
 </resources>

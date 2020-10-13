@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/qTransTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:textStyle="bold|italic"
+            android:layout_margin="8dp"
+            android:layout_weight="2"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/cardview_dark_background"
+            android:layout_marginHorizontal="8dp"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/aTransEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:inputType="textMultiLine"
+            android:scrollHorizontally="false"
+            android:dropDownHeight="250dp"
+            android:layout_margin="8dp"
+            android:hint="@string/typing_hint"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
