@@ -1,8 +1,11 @@
-package com.example.inmt_offline.UI;
+package com.example.inmt_offline.External;
 
 import android.content.Intent;
 import android.util.Pair;
 import android.view.View;
+
+import com.example.inmt_offline.UI.PreviewActivity;
+import com.example.inmt_offline.UI.Temp;
 
 import java.util.ArrayList;
 

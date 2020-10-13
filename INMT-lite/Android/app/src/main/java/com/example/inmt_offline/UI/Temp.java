@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmt_offline.Adapters.TransListAdapter;
+import com.example.inmt_offline.External.Preview_Button;
 import com.example.inmt_offline.R;
 
 import java.util.ArrayList;
