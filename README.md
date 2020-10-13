@@ -157,7 +157,7 @@ Following steps are to be followed while integrating INMT-mobile:
 
 1. Send an intent to `WelcomePage` activity to start the activity. WelcomePage Activity is the default acitvity (first page) of INMT-mobile and can be found at `app/src/main/java/com/example/inmt_offline/UI/WelcomePage.java`.
 2. Write your custom code in `Preview_Button.java` file located at `app/src/main/java/com/example/inmt_offline/External/Preview_Button.java`. Specifically, the method `onClick` provides the implementation for what happens when Preview Button is clicked. The method receives translation pairs list along with other arguments and also provides a deafault implementation for reference.
-3. Update BASE_URL string resource in case, the online mode of INMT-mobile is expected to reach out to any other API for online translation.
+3. Update `BASE_URL` string resource in case, the online mode of INMT-mobile is expected to reach out to any other API for online translation.
 
 The `PreviewActivity` located at `app/src/main/java/com/example/inmt_offline/UI/PreviewActivity.java` can be removed in case there is a custom implementation of `onClick` method at `Preview_Button.java`, since it is a supplementary activity to default implemetation.
 
