@@ -26,7 +26,7 @@ public class WelcomePage extends AppCompatActivity {
     static public int ONLINE_MODE = 1;
 
     int mode = 0; // Corresponds to the type of mode, 0: OFFLINE, 1: ONLINE
-    int lang_spec = 0; // Corresponds to the type translation pair, 0: English-Hindi, 1: Hindi-English, 2: Hindi-Gondi
+    int lang_spec = 0; // Corresponds to the type translation pair, 0: English-Hindi, 1: Hindi-English, 2: Hindi-Gondi, 3: Custom
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,8 @@ public class WelcomePage extends AppCompatActivity {
                     case 2:
                         sourceEditText.setText(R.string.sampleHindiString);
                         break;
+                    case 3:
+                        sourceEditText.setText(R.string.CustomLoadSample);
                 }
             }
         });

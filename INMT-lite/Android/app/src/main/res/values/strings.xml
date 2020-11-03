@@ -1,11 +1,36 @@
 <resources>
+<!--    IMPORTANT-->
+<!--    PLEASE UPDATE THIS SECTION TO BUILD THE PROJECT, CUSTOM FIELDS ARE OPTIONAL IN CASE YOU ARE NOT USING CUSTOM MODEL -->
+
+    <!--    Enter the BASE URL for api call here-->
+    <string name="BASE_URL">ENTER YOUR URL HERE</string>
+    <string name="INPUT_JSON_VOCAB">inp_dict.json</string>
+    <string name="TARGET_JSON_VOCAB">tgt_dict.json</string>
+    <string name="MODEL_FILE">goog_nmt_quan_v3_320k_14L_mask_v2.tflite</string>
+
+    <string-array name="onlineTransOPs">
+        <item>English-Hindi</item>
+        <item>Hindi-English</item>
+        <item>Hindi-Gondi</item>
+<!--        <item> Enter your Custom Translation Language Pair </item>-->
+    </string-array>
+
+<!--    Enter your custom sample load sentence-->
+    <string name="CustomLoadSample">YOUR CUSTOM SAMPLE LOAD DATA</string>
+
+<!--NO NEED FOR ADDTIONAL CHANGES BEYOND THIS LINE-->
+
+
+
+
+
     <string name="app_name">INMT Mobile</string>
     <string name="INMT_URL">INMT_API_BASE_URL</string>
     <string name="project_name">INMT-Mobile</string>
     <string name="sampleEnglishString">He is a good boy. He loves to read books.</string>
     <string name="sampleHindiString">आज मौसम सुहावना है। हमें शाम को बाहर जाना चाहिए।</string>
     <string name="typing_hint">Start typing here...</string>
-    <string name="BASE_URL">ENTER YOUR URL HERE</string>
+
 
     <string-array name="Modes">
         <item>OFFLINE</item>
@@ -16,11 +41,7 @@
         <item>English-Hindi</item>
     </string-array>
 
-    <string-array name="onlineTransOPs">
-        <item>English-Hindi</item>
-        <item>Hindi-English</item>
-        <item>Hindi-Gondi</item>
-    </string-array>
+
 
     <string-array name="lang_spec_code_offline">
         <item>en-hi</item>

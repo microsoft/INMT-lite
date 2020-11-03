@@ -112,8 +112,8 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         pd.show();
 
         try {
-            inp_tokenizer_json = new JSONObject(loadJSONFromAsset("inp_dict.json"));
-            tgt_tokenizer_json = new JSONObject(loadJSONFromAsset("tgt_dict.json"));
+            inp_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.INPUT_JSON_VOCAB)));
+            tgt_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.TARGET_JSON_VOCAB)));
             for (int i = 1; i < tgt_tokenizer_json.length(); i++)
                 tgt_tokenizer.add((String) tgt_tokenizer_json.get(String.valueOf(i)));
 
@@ -168,7 +168,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
 
     private MappedByteBuffer loadModelFile(Activity activity) throws IOException {
         Log.i("Model read:", "started");
-        AssetFileDescriptor fileDescriptor = activity.getAssets().openFd("goog_nmt_quan_v3_320k_14L_mask_v2.tflite");
+        AssetFileDescriptor fileDescriptor = activity.getAssets().openFd(translationActivityThis.getString(R.string.MODEL_FILE));
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
         FileChannel fileChannel = inputStream.getChannel();
         long startOffset = fileDescriptor.getStartOffset();

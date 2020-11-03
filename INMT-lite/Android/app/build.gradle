@@ -30,10 +30,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    // This dependency adds the necessary TF op support.
     implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
     implementation 'com.mcxiaoke.volley:library:1.0.19'
-    // This dependency adds the necessary TF op support.
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.12'
