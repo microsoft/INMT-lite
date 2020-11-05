@@ -132,7 +132,7 @@ def train(encoder,
             print('Time taken for validation {} sec\n'.format(time.time() - val_start))
             
     
-    partial_model = Partial_model.getModel(encoder, decoder, Tx, encoder.encoder_units)
+    partial_model = Partial_model.getModel(encoder, decoder, Tx, encoder.encoder_units, tgt_vocab_length)
     serialise_and_save(partial_model, quantize_model, save_tflite_dir)
 
 def serialise_and_save(partial_model, quantize, save_tflite_dir):

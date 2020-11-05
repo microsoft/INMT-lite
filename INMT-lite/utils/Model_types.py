@@ -46,15 +46,11 @@ class Partial_model():
         
         
         dec_hidden = e_h
-        print(dec_input.shape, 'inp', dec_hidden.shape, 'dec_hidd')
         for t in range(1, Tx):
-            print(t, 'tt')
         # passing enc_output to the decoder
             predictions, dec_hidden, _ = decoder(d_i, dec_hidden, enc_output)
     #         outputs.append(predictions)
-            print(predictions.shape, 'pred')
             d_i = tf.reshape(partial[:, t], (-1, 1))
-            print(dec_input.shape, 'dec_input')
         
         predictions, dec_hidden, _ = decoder(d_i, dec_hidden, enc_output)
         predictions = tf.multiply(predictions, mask)
