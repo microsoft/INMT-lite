@@ -147,7 +147,7 @@ def serialise_and_save(partial_model, quantize, save_tflite_dir):
     with tf.io.gfile.GFile(tflite_path, 'wb') as f:
         f.write(tflite_model)
         
-    print("Genrated tflite file at:", tflite_path)
+    print("Generated tflite file at:", tflite_path)
     
 
 
