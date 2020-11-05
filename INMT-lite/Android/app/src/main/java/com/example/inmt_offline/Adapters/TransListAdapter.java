@@ -43,7 +43,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.example.inmt_offline.UI.WelcomePage.CUSTOM_OFFLINE;
+import static com.example.inmt_offline.UI.WelcomePage.HINDI_GONDI_OFFLINE;
 import static com.example.inmt_offline.UI.WelcomePage.OFFLINE_MODE;
+import static com.example.inmt_offline.UI.WelcomePage.ONLINE_MODE;
 
 
 public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyViewHolder> {
@@ -103,7 +106,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         return json;
     }
 
-    private void loadJson() {
+    private void loadJson(int lang_spec) {
 
         ProgressDialog pd = new ProgressDialog(translationActivityThis);
 
@@ -112,13 +115,29 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         pd.show();
 
         try {
-            inp_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.INPUT_JSON_VOCAB)));
-            tgt_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.TARGET_JSON_VOCAB)));
+
+            switch (lang_spec) {
+                case HINDI_GONDI_OFFLINE:
+                    inp_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.HINDI_GONDI_INPUT_JSON_VOCAB)));
+                    tgt_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.HINDI_GONDI_TARGET_JSON_VOCAB)));
+                    break;
+                case CUSTOM_OFFLINE:
+                    inp_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.CUSTOM_INPUT_JSON_VOCAB)));
+                    tgt_tokenizer_json = new JSONObject(loadJSONFromAsset(translationActivityThis.getString(R.string.CUSTOM_TARGET_JSON_VOCAB)));
+                    break;
+                default:
+                    throw new RuntimeException("Incorrect specification or No vocabulary found for offline mode.");
+            }
+
+
             for (int i = 1; i < tgt_tokenizer_json.length(); i++)
                 tgt_tokenizer.add((String) tgt_tokenizer_json.get(String.valueOf(i)));
 
             for (int i = 1; i < inp_tokenizer_json.length(); i++)
                 inp_tokenizer.add((String) inp_tokenizer_json.get(String.valueOf(i)));
+
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -134,7 +153,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         HashMap<Integer, Object> outputVal = new HashMap<>();
         outputVal.put(0, new float[1][5]);
         outputVal.put(1, new int[1][5]);
-        float[][] enc_hidden = new float[1][1024];
+        float[][] enc_hidden = new float[1][500];
         float[][] dec_input = new float[1][1];
 
         dec_input[0][0] = 2;
@@ -147,7 +166,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         for (float i : tgt_inputVal[0]) tgt_arr += i + " ";
         Log.i("tgt_inputVal", tgt_arr);
 
-        tfLite.runForMultipleInputsOutputs(new Object[]{dec_input, enc_hidden, mask, tgt_inputVal, inp_inputVal}, outputVal);
+        tfLite.runForMultipleInputsOutputs(new Object[]{inp_inputVal, mask, dec_input, enc_hidden, tgt_inputVal}, outputVal);
 
         Log.i("MODEL: ", "run success");
 
@@ -166,9 +185,22 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         return res;
     }
 
-    private MappedByteBuffer loadModelFile(Activity activity) throws IOException {
+    private MappedByteBuffer loadModelFile(Activity activity, int modelType) throws IOException {
         Log.i("Model read:", "started");
-        AssetFileDescriptor fileDescriptor = activity.getAssets().openFd(translationActivityThis.getString(R.string.MODEL_FILE));
+
+        AssetFileDescriptor fileDescriptor;
+
+        switch (lang_spec) {
+            case HINDI_GONDI_OFFLINE:
+                fileDescriptor = activity.getAssets().openFd(translationActivityThis.getString(R.string.HINDI_GONDI_MODEL_FILE));
+                break;
+            case CUSTOM_OFFLINE:
+                fileDescriptor = activity.getAssets().openFd(translationActivityThis.getString(R.string.CUSTOM_OFFLINE_MODEL_FILE));
+                break;
+            default:
+                throw new RuntimeException("Incorrect specification or No Model Specified for offline mode.");
+
+        }
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
         FileChannel fileChannel = inputStream.getChannel();
         long startOffset = fileDescriptor.getStartOffset();
@@ -186,18 +218,18 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         BASE_URL = translationActivityThis.getResources().getString(R.string.BASE_URL);
         lang_spec_codes_online = translationActivityThis.getResources().getStringArray(R.array.lang_spec_codes_online);
         handler = new Handler();
-        if (mode == 1) {
+        if (mode == ONLINE_MODE) {
             requestQueue = Volley.newRequestQueue(translationActivityThis);
         }
 
         try {
-            tfLite = new Interpreter(loadModelFile(translationActivityThis));
+            tfLite = new Interpreter(loadModelFile(translationActivityThis, lang_spec));
         } catch (IOException e) {
             Toast.makeText(translationActivityThis, "", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         focus = new boolean[qTransStrings.length];
-        loadJson();
+        loadJson(lang_spec);
 
     }
 
@@ -222,7 +254,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
 
 
         holder.qTransTextView.setText(qTransStrings[position]);
-        final float[][] mask = new float[1][tgt_tokenizer.size() + 2];
+        final float[][] mask = new float[1][tgt_tokenizer.size() + 1];
 
         for (int i = 0; i < qTransStrings.length; i++) focus[i] = false;
 
@@ -246,14 +278,16 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
                                 Boolean applyMask = false;// at model's index 2
 
                                 for (int i = 0; i < mask[0].length; i++) mask[0][i] = 1;
+                                mask[0][0] = 0; //Mask off the pad value
 
 
                                 Log.i("Len vocab:", tgt_tokenizer.size() + "");
 
-                                if (tgt_string.length() > 1)
+                                if (tgt_string.length() > 0)
                                     if (tgt_string.charAt(tgt_string.length() - 1) != ' ') {
                                         applyMask = true;
                                     }
+
                                 // Splitting the input string by spaces
                                 final String[] tgt_words = !tgt_string.equals("") ? tgt_string.split(" ") : " ".split(" ");
                                 // Splitting the user input by spaces
@@ -268,6 +302,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
 
                                 int inp_wordsLength = inp_words.length;
                                 int tgt_wordsLength = tgt_words.length;
+
 
 //                        float[][] inp_inputArray = getArray(inp_words, inp_wordsLength, inp_tokenizer);
 
@@ -311,6 +346,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
                                             mask[0][i + 1] = 0;
                                         } else {
                                             Log.i("starts with ::", tgt_words[tgt_words.length - 1] + " " + check + " " + tgt_tokenizer.get(i));
+                                            mask[0][i + 1] = 1;
                                         }
                                     }
                                 }

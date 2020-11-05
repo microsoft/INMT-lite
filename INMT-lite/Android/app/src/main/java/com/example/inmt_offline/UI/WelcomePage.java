@@ -25,6 +25,15 @@ public class WelcomePage extends AppCompatActivity {
     static public int OFFLINE_MODE = 0;
     static public int ONLINE_MODE = 1;
 
+    public static final int ENGLISH_HINDI_ONLINE = 0;
+    public static final int HINDI_ENGLISH_ONLINE = 1;
+    public static final int HINDI_GONDI_ONLINE = 2;
+    public static final int CUSTOM_ONLINE = 3;
+
+
+    public static final int HINDI_GONDI_OFFLINE = 0;
+    public static final int CUSTOM_OFFLINE = 1;
+
     int mode = 0; // Corresponds to the type of mode, 0: OFFLINE, 1: ONLINE
     int lang_spec = 0; // Corresponds to the type translation pair, 0: English-Hindi, 1: Hindi-English, 2: Hindi-Gondi, 3: Custom
 
@@ -100,19 +109,40 @@ public class WelcomePage extends AppCompatActivity {
         loadSampleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (lang_spec) {
-                    case 0:
-                        sourceEditText.setText(R.string.sampleEnglishString);
-                        break;
-                    case 1:
-                        sourceEditText.setText(R.string.sampleHindiString);
-                        break;
-                    case 2:
-                        sourceEditText.setText(R.string.sampleHindiString);
-                        break;
-                    case 3:
-                        sourceEditText.setText(R.string.CustomLoadSample);
+
+                if (mode == ONLINE_MODE) {
+
+                    switch (lang_spec) {
+                        case ENGLISH_HINDI_ONLINE:
+                            sourceEditText.setText(R.string.sampleEnglishString);
+                            break;
+                        case HINDI_ENGLISH_ONLINE:
+                            sourceEditText.setText(R.string.sampleHindiString);
+                            break;
+                        case HINDI_GONDI_ONLINE:
+                            sourceEditText.setText(R.string.sampleHindiString);
+                            break;
+                        case CUSTOM_ONLINE:
+                            sourceEditText.setText(R.string.CustomLoadSample_ONLINE);
+                            break;
+
+                    }
+
+                } else {
+
+                    switch (lang_spec) {
+                        case HINDI_GONDI_OFFLINE:
+                            sourceEditText.setText(R.string.sampleHindiString);
+                            break;
+                        case CUSTOM_OFFLINE:
+                            sourceEditText.setText(R.string.CustomLoadSample_OFFLINE);
+
+                    }
+
                 }
+
+
+
             }
         });
 

@@ -2,21 +2,32 @@
 <!--    IMPORTANT-->
 <!--    PLEASE UPDATE THIS SECTION TO BUILD THE PROJECT, CUSTOM FIELDS ARE OPTIONAL IN CASE YOU ARE NOT USING CUSTOM MODEL -->
 
-    <!--    Enter the BASE URL for api call here-->
+    <!--    Enter the BASE URL for api call here (ONLINE MODE)-->
     <string name="BASE_URL">ENTER YOUR URL HERE</string>
-    <string name="INPUT_JSON_VOCAB">inp_dict.json</string>
-    <string name="TARGET_JSON_VOCAB">tgt_dict.json</string>
-    <string name="MODEL_FILE">goog_nmt_quan_v3_320k_14L_mask_v2.tflite</string>
 
-    <string-array name="onlineTransOPs">
-        <item>English-Hindi</item>
-        <item>Hindi-English</item>
+    <!--    Below fields are for Hindi-Gondi Model-->
+    <string name="HINDI_GONDI_INPUT_JSON_VOCAB">HINDI_GONDI_INPUT_JSON_FILE_NAME.json</string>
+    <string name="HINDI_GONDI_TARGET_JSON_VOCAB">HINDI_GONDI_TARGET_JSON.json</string>
+    <string name="HINDI_GONDI_MODEL_FILE">HINDI_GONDI_MODEL_NAME.tflite</string>
+
+    <!--    Below fields are for Additional Custom Model (if any)-->
+    <string name="CUSTOM_INPUT_JSON_VOCAB">INPUT_JSON_VOCAB_FILE_NAME</string>
+    <string name="CUSTOM_TARGET_JSON_VOCAB">TARGET_JSON_VOCAB_FILE_NAME</string>
+    <string name="CUSTOM_OFFLINE_MODEL_FILE">CUSTOM_MODEL_FILE_NAME</string>
+
+    <string-array name="offlineTransOPs">
         <item>Hindi-Gondi</item>
-<!--        <item> Enter your Custom Translation Language Pair </item>-->
+        <!--        <item> Enter your Custom Translation Language Pair (OFFLINE MODE) </item>-->
     </string-array>
 
-<!--    Enter your custom sample load sentence-->
-    <string name="CustomLoadSample">YOUR CUSTOM SAMPLE LOAD DATA</string>
+    <string-array name="lang_spec_code_offline">
+        <item>hi-gondi</item>
+        <!--        <item> Enter your Custom Translation Language Pair code (Could be any string) </item>-->
+    </string-array>
+
+
+    <string name="CustomLoadSample_OFFLINE">ENTER YOUR CUSTOM SAMPLE DATA LOAD (Offline mode)</string>
+    <string name="CustomLoadSample_ONLINE">ENTER YOUR CUSTOM SAMPLE DATA LOAD (Online mode)</string>
 
 <!--NO NEED FOR ADDTIONAL CHANGES BEYOND THIS LINE-->
 
@@ -37,15 +48,14 @@
         <item>ONLINE</item>
     </string-array>
 
-    <string-array name="offlineTransOPs">
+
+    <string-array name="onlineTransOPs">
         <item>English-Hindi</item>
+        <item>Hindi-English</item>
+        <item>Hindi-Gondi</item>
+
     </string-array>
 
-
-
-    <string-array name="lang_spec_code_offline">
-        <item>en-hi</item>
-    </string-array>
 
     <string-array name="lang_spec_codes_online">
         <item>en-hi</item>

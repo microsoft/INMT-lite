@@ -31,12 +31,13 @@ class Trans_model():
         return tf.keras.Model(inputs = [X, enc_hidden, dec_input], outputs = outputs)
 
 class Partial_model():
-    def getModel(encoder, decoder, Tx, units):
+    def getModel(encoder, decoder, Tx, units, tgt_vocab_length):
         outputs = []
         X = tf.keras.layers.Input(shape=(Tx,))
         partial = tf.keras.layers.Input(shape=(Tx,))
         enc_hidden = tf.keras.layers.Input(shape=(units,))
         dec_input = tf.keras.layers.Input(shape=(1,))
+        mask = tf.keras.layers.Input(shape=(tgt_vocab_length,))
         
         d_i = dec_input
         X_i = X
@@ -56,8 +57,9 @@ class Partial_model():
             print(dec_input.shape, 'dec_input')
         
         predictions, dec_hidden, _ = decoder(d_i, dec_hidden, enc_output)
+        predictions = tf.multiply(predictions, mask)
         d_i = tf.squeeze(d_i)
         
         outputs.append(tf.math.top_k(predictions, 5))
         
-        return tf.keras.Model(inputs = [X, enc_hidden, dec_input, partial], outputs = [outputs[0][0], outputs[0][1]])
+        return tf.keras.Model(inputs = [X, enc_hidden, dec_input, partial, mask], outputs = [outputs[0][0], outputs[0][1]])
