@@ -1,6 +1,10 @@
 
 # INMT-lite
 
+<div style="text-align: center;">
+  <img  src="https://i.ibb.co/KzDG7VR/INMT-lite-Preview.png">
+</div>
+
 Interactive Neural Machine Translation-lite (INMT-lite) is a framework to train and develop lite versions (.tflite) of models for neural machine translation (NMT) that can be run on embedded devices like mobile phones and tablets that have low computation power and space. The tflite models generated can be used to build the offline version of INMT mobile, a mobile version of [INMT web](https://microsoft.github.io/inmt/).
 
 Table of Contents
@@ -10,7 +14,7 @@ Table of Contents
   * [Quickstart](#quickstart)
   * [INMT-mobile](#INMT-Mobile)
   * [Integration](#Integration)
-  * [Hindi-Gondi Parallel Corpus](Hindi-Gondi-Parallel-Corpus)
+  * [Hindi-Gondi Parallel Corpus](#Hindi-Gondi-Parallel-Corpus)
   * [Acknowledgements](#acknowledgements)
 
 ## Project structure
