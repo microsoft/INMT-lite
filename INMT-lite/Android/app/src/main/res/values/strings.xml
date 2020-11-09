@@ -39,7 +39,7 @@
     <string name="INMT_URL">INMT_API_BASE_URL</string>
     <string name="project_name">INMT-Mobile</string>
     <string name="sampleEnglishString">He is a good boy. He loves to read books.</string>
-    <string name="sampleHindiString">आज मौसम सुहावना है। हमें शाम को बाहर जाना चाहिए।</string>
+    <string name="sampleHindiString">कल मौसम सुहावना है। हमें शाम को बाहर जाना चाहिए।</string>
     <string name="typing_hint">Start typing here...</string>
 
 
