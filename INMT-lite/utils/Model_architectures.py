@@ -11,12 +11,16 @@ class Encoder():
         self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
         self.gru = tf.keras.layers.GRU(self.encoder_units,
                                     return_sequences=True,
+                                    recurrent_initializer='glorot_uniform')
+        self.gru_out = tf.keras.layers.GRU(self.encoder_units,
+                                    return_sequences=True,
                                     return_state=True,
                                     recurrent_initializer='glorot_uniform')
 
     def __call__(self, x, hidden):
         x = self.embedding(x)
-        output, state = self.gru(x, initial_state = hidden)
+        l1_output = self.gru(x, initial_state = hidden)
+        output, state = self.gru_out(l1_output, initial_state = hidden)
         return output, state
 
 class Decoder():
@@ -24,6 +28,9 @@ class Decoder():
         self.decoder_units = decoder_units
         self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
         self.gru = tf.keras.layers.GRU(self.decoder_units,
+                                    return_sequences=True,
+                                    recurrent_initializer='glorot_uniform')
+        self.gru_out = tf.keras.layers.GRU(self.decoder_units,
                                     return_sequences=True,
                                     return_state=True,
                                     recurrent_initializer='glorot_uniform')
@@ -43,7 +50,8 @@ class Decoder():
         x = tf.concat([tf.expand_dims(context_vector, 1), x], axis=-1)
 
         # passing the concatenated vector to the GRU
-        output, state = self.gru(x)
+        l1_output = self.gru(x)
+        output, state = self.gru_out(l1_output)
 
         # output shape == (batch_size * 1, hidden_size)
         output = tf.reshape(output, (-1, output.shape[2]))
