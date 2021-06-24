@@ -1,2 +1,2 @@
-numpy==1.18.1
-tf-nightly==2.5.0.dev20201103
+tensorflow-gpu==2.5.0
+tokenizers

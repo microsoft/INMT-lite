@@ -169,7 +169,7 @@ def read_vocab(filepath):
     with open(filepath, encoding='utf-8') as f:
         json_str = json.load(f)
     
-    return json_str, json_str['num_words']
+    return json_str, len(json_str)
 
     
 

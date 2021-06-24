@@ -8,7 +8,7 @@ class Encoder():
     def __init__(self, vocab_size, embedding_dim, encoder_units):
         # print(vocab_size, embedding_dim, encoder_units, "##########################################ENCODER########################")
         self.encoder_units = encoder_units
-        self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
+        self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim, mask_zero=True)
         self.gru = tf.keras.layers.GRU(self.encoder_units,
                                     return_sequences=True,
                                     recurrent_initializer='glorot_uniform')
@@ -26,7 +26,7 @@ class Encoder():
 class Decoder():
     def __init__(self, vocab_size, embedding_dim, decoder_units):
         self.decoder_units = decoder_units
-        self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
+        self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim, mask_zero=True)
         self.gru = tf.keras.layers.GRU(self.decoder_units,
                                     return_sequences=True,
                                     recurrent_initializer='glorot_uniform')

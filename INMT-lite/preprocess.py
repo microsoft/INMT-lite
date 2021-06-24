@@ -2,8 +2,9 @@
 Code for preprocessing the input data for the models.
 """
 
-from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tokenizers import ByteLevelBPETokenizer
+from tokenizers.processors import TemplateProcessing
 
 import numpy as np
 import os
@@ -26,7 +27,6 @@ def preprocess_sentence(w):
     
     w = w.strip()
     
-    w = '<start> ' + w + ' <end>'
     return w
 
 def create_dataset(path_src_train, path_tgt_train, path_src_val, path_tgt_val, seed, num_examples):
@@ -61,21 +61,29 @@ def create_dataset(path_src_train, path_tgt_train, path_src_val, path_tgt_val, s
     
     return src_train_data, tgt_train_data, src_val_data, tgt_val_data
 
-def tokenize(lang, sent_len, padding='post', lang_tokenizer = None, num_words=None):
+def tokenize_bpe(lang, sent_len, padding='post', lang_tokenizer = None, num_words=None):
     if lang_tokenizer is None:
+        # initialize BBPE tokenizer
+        lang_tokenizer = ByteLevelBPETokenizer()
+
+        # train the BBPE tokenizer
         if num_words:
-            lang_tokenizer = Tokenizer(filters='', oov_token="<OOV>", num_words=num_words)
+            lang_tokenizer.train_from_iterator(lang, vocab_size=num_words, min_frequency=2, special_tokens=['<pad>', '<start>', '<end>'])
         else:
-            lang_tokenizer = Tokenizer(filters='', oov_token="<OOV>")
-        
-        lang_tokenizer.fit_on_texts(lang)
-        
-        if num_words:
-            lang_tokenizer.index_word['num_words'] = num_words+1
-        else:
-            lang_tokenizer.index_word['num_words'] = len(lang_tokenizer.word_index)+1 #Pad will be included
+            lang_tokenizer.train_from_iterator(lang, min_frequency=2, special_tokens=['<pad>', '<start>', '<end>'])
     
-    tensor = lang_tokenizer.texts_to_sequences(lang)
+        # post tokenization processing
+        lang_tokenizer.post_processor = TemplateProcessing(
+            single="<start> $A <end>",
+            special_tokens=[
+                ("<start>", lang_tokenizer.token_to_id("<start>")),
+                ("<end>", lang_tokenizer.token_to_id("<end>")),
+            ],
+        )
+
+    # encoding the input into tokens using BBPE
+    tensor = lang_tokenizer.encode_batch(lang)
+    tensor = list(map(lambda x: x.ids, tensor))
     
     tensor = pad_sequences(tensor, padding=padding, truncating='post', maxlen=sent_len)
     
@@ -102,14 +110,14 @@ def load_dataset(
     # print(hi_data[-68])
 
     print("Started Tokenising for: src_data")
-    src_train_tensor, src_tokenizer = tokenize(src_train_data, sent_len=Tx, num_words=length_src_vocab)
+    src_train_tensor, src_tokenizer = tokenize_bpe(src_train_data, sent_len=Tx, num_words=length_src_vocab)
     print("Finished Tokenising for: src_data")
     print("Started Tokenising for: tgt_data")
-    tgt_train_tensor, tgt_tokenizer = tokenize(tgt_train_data, sent_len=Ty, padding='pre', num_words=length_tgt_vocab)
+    tgt_train_tensor, tgt_tokenizer = tokenize_bpe(tgt_train_data, sent_len=Ty, padding='pre', num_words=length_tgt_vocab)
     print("Finished Tokenising for: tgt_data")
     
-    src_val_tensor, _ = tokenize(src_val_data, sent_len=Tx, lang_tokenizer=src_tokenizer)
-    tgt_val_tensor, _ = tokenize(tgt_val_data, sent_len=Ty, lang_tokenizer=tgt_tokenizer, padding='pre')
+    src_val_tensor, _ = tokenize_bpe(src_val_data, sent_len=Tx, lang_tokenizer=src_tokenizer)
+    tgt_val_tensor, _ = tokenize_bpe(tgt_val_data, sent_len=Ty, lang_tokenizer=tgt_tokenizer, padding='pre')
 
     
     return src_train_tensor, src_tokenizer, tgt_train_tensor, tgt_tokenizer, src_val_tensor, tgt_val_tensor
@@ -124,8 +132,9 @@ def write_processed_data(dir_path, file_name, tensor):
 def write_vocab_data(dir_path, file_name, tokenizer):
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
-    with open( os.path.join(dir_path, file_name) , 'w' ,encoding='utf-8') as file:    
-        json.dump(tokenizer.index_word , file, ensure_ascii=False )
+
+    # Save files to disk
+    tokenizer.save_model(dir_path, file_name)
 
 
 def preprocess(
@@ -174,8 +183,8 @@ def preprocess(
     
     # Writing Vocabulary to file
     
-    write_vocab_data(to_path_src_vocab, 'src_vocab.json', src_tokenizer)
-    write_vocab_data(to_path_tgt_vocab, 'tgt_vocab.json', tgt_tokenizer)
+    write_vocab_data(to_path_src_vocab, 'src_tokenizer_bpe', src_tokenizer)
+    write_vocab_data(to_path_tgt_vocab, 'tgt_tokenizer_bpe', tgt_tokenizer)
     
 
 if __name__ == "__main__":
