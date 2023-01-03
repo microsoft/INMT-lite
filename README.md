@@ -6,21 +6,6 @@ The environment can be setup using the provided requirements file
 pip install -r requirements.txt
 ```
 
-## Evaluation Signature: BLEU 
-```
-{
- "name": "BLEU",
- "signature": 
- "nrefs:1|case:mixed|eff:no|tok:spm-flores|smooth:exp|version:2.2.0",
- "verbose_score": "43.2/27.2/19.4/13.7 (BP = 1.000 ratio = 1.154 hyp_len = 81271 ref_len = 70443)",
- "nrefs": "1",
- "case": "mixed",
- "eff": "no",
- "tok": "spm-flores",
- "smooth": "exp",
- "version": "2.2.0"
-}
-```
 ## Training Procedure (Generic/Not Compatible with the Android Deployment Pipeline)
 ```
 1. Run **preprocess.py** to convert training data to HF format and generating the Tokenizer Files for the Vanilla tranformer. 
@@ -57,7 +42,20 @@ CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node 2 -
  "space": "no",
  "version": "2.2.0"
 }
+
+{
+ "name": "BLEU",
+ "signature": "nrefs:1|case:mixed|eff:no|tok:spm-flores|smooth:exp|version:2.2.0",
+ "verbose_score": "43.2/27.2/19.4/13.7 (BP = 1.000 ratio = 1.154 hyp_len = 81271 ref_len = 70443)",
+ "nrefs": "1",
+ "case": "mixed",
+ "eff": "no",
+ "tok": "spm-flores",
+ "smooth": "exp",
+ "version": "2.2.0"
+}
 ```
+
 
 # Directory Structure
 ```bash 
@@ -74,7 +72,7 @@ CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node 2 -
 │   ├── inference_debug.py
 │   ├── tfb_inference_debug.py
 │   └── train_debug.py
-├── inference.py                            # Inferencing - All models [mt5, vanilla], All modes [Online, Quantization, Distillation]
+├── inference.py                            # Inferencing - All models [mt5, vanilla], All modes [Online, Quantization](For distillation models go to tflite_inference_distilled_models.py)
 ├── make_concatenated_vocab.py              # Making the vocab to train the Marian Tokenizer (Used for compatibility with Deployment goal)
 ├── marian                                  # Marian tokenizer models (Used for compatibility with Deployment goal)
 │   ├── en-hi
@@ -104,9 +102,9 @@ CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node 2 -
 │   ├── complete_model_tflite_conversion.py
 │   ├── tf_model.tflite                 # Converting tf models (includes models trained with the Huggingface API) to tflite. 
 │   └── tfb_inference.py                
-├── sweep.yaml                          # Yaml configuration file for running sweeps on Wandb
-├── tflite_inference_distilled_models.py# Sequential inferencing with the vanilla transformer models 
-└── train.py                            # Training script (Supports Continued Pretraining of mt5, Marian Tokenizer Training)
+├── sweep.yaml                           # Yaml configuration file for running sweeps on Wandb
+├── tflite_inference_distilled_models.py # Sequential inferencing with the vanilla transformer models 
+└── train.py                             # Training script (Supports Continued Pretraining of mt5, Marian Tokenizer Training)
 ```
 
 
