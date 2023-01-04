@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/../INMT_Offline.iml" filepath="$PROJECT_DIR$/../INMT_Offline.iml" group="INMT_Offline" />
-      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="INMT_Offline/app" />
-    </modules>
-  </component>
-</project>

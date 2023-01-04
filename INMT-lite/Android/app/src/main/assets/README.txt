@@ -1,1 +1,0 @@
-ADD YOUR MODELS (.tflite) and vocabulary files (.txt) IN THIS DIRECTORY
