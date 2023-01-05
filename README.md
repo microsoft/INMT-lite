@@ -1,4 +1,3 @@
-
 <h1> <p align="center"> INMT-Lite </p></h1> 
 Interactive Neural Machine Translation-lite (INMT-Lite) is an assistive translation service that can be run on embedded devices like mobile phones and tablets that have low computation power, space and no internet connectivity. A detailed background of the compression techniques used to drive the assistive interfaces, the model's data and evaluation and the interface design can be found at the linked works. 
 
@@ -23,12 +22,7 @@ Table of Contents
 INMT was developed to help expand the digital datasets for low resource languages and further support in developing other language tools for such low resource languages. The [sample model](https://microsoftapc-my.sharepoint.com/:f:/g/personal/taganu_microsoft_com/El5qZjb_teZJqsHyE5Cyh1kB2QCTMwot8E7wGYpWCi0BQA?e=zEo7bq) in this codebase is trained on  the first-ever Hindi-Gondi Parallel Corpus released by [CGNet Swara](http://cgnetswara.org/) which can be found [here](http://cgnetswara.org/hindi-gondi-corpus.html). 
 
 ## Models 
-
-You can access all our transformer-arch based models here; 
-
-- Gondi MT5               [Non-Compressed Model variant of 2.28GB]()
-- Gondi Quantized Model   [Compressed to 400MB]()
-- Gondi Distilled Model   [Compressed to 183MB]() 
+You can access all our transformer-arch based models by the scripts provided in the /models folder.
 
 ## Transformer-Suite
 This section delineates the instructions for Transformer Dev-Variants: For Model Setup, Training, Inference and Edge Deployment (Preparing the model for Android Compatible Training). Note that code on this repository is heavily adapted for code specified at [this](https://github.com/microsoft/Lightweight-Low-Resource-NMT) repository for generating light-weight, NMT Models. 
@@ -54,62 +48,40 @@ Note that for making the model Android-Compatible: We use an entirely different 
 ```
 #### Directory Structure
 ```bash 
-├── auto                  # Each of these scripts can be used for automating different parts of the pipelines w/ standard hyperparameters 
-│   ├── amount_of_synthetic_data_sweeps.sh  # Sweeping across amount of data to train the distilled models for 
-│   ├── compute_confidence.sh               # Computing confidence on in-domain and out-of-domain datasets
-│   ├── distillation_data_generator.sh      # Generating distillation labels for all the students 
-│   ├── inference_seq.sh                    # Inferencing both in online and offline modes
-│   ├── student_architecture_sweep.sh       # Sweeping across different student architectures 
-│   └── train_seq.sh                        # Training student models across different distillation configurations
 ├── confidence_estimation.py                # Monitoring online models' logits - Softmax Entropy, Top-K probabilities Dispersion
 ├── confidence_visualization.ipynb          # Visualization confidence of the models 
-├── debug                                   # Debugging scripts 
-│   ├── inference_debug.py
-│   ├── tfb_inference_debug.py
-│   └── train_debug.py
-├── inference.py                            # Inferencing - All models [mt5, vanilla], All modes [Online, Quantization](For distillation models go to tflite_inference_distilled_models.py)
+├── inference.py                            # Inferencing - All models [mt5, vanilla](For distillation models go to tflite_inference_distilled_models.py)
 ├── make_concatenated_vocab.py              # Making the vocab to train the Marian Tokenizer (Used for compatibility with Deployment goal)
-├── marian                                  # Marian tokenizer models (Used for compatibility with Deployment goal)
-│   ├── en-hi
-│   │   ├── concatenated_vocab.json
-│   │   ├── source_merges.json
-│   │   ├── source_vocab.json
-│   │   ├── target_merges.json
-│   │   └── target_vocab.json
+├── mt5_inference.py                        # mt5-specific inferencing script 
+├── preprocess.py                           # Creates train/test files in the format that is required by the dataloader + tokenizer training 
+├── requirements.txt                        # package requirements for these scripts      
+├── sc.py                                   # For script converting before and after training for languages with unseen scripts 
+├── split_saving_mt5.py                     # Converting finetuned mt5 models to offline graphs (split into encoder and decoder)
+├── split_saving_tfb.py                     # Converting trained vanilla transformer models to offline graphs (split into encoder and decoder)
+├── spm_extractor.py                        # Used to extract vocab/merges from the spm models (Used for compatibility with Deployment goal)
+├── spm_model_generator.py                  # Generating the spm models for the Marian Tokenizer (Used for compatibility with Deployment goal)
+├── student_labels.py                       # Generates distillation labels in batches using source-lang monolingual data
+├── sweep.yaml                              # Yaml configuration file for running sweeps on Wandb
+├── tflite_inference_distilled_models.py    # Sequential inferencing with the vanilla transformer models 
+├── marian                                  # Marian tokenizer models (Used for compatibility with Deployment goal, Example files are provided as output ref)
 │   └── hi-gondi
 │       ├── merges_gondi.txt
 │       ├── merges_hi.txt
 │       ├── spiece_test_gondi.model
 │       ├── spiece_test_gondi.vocab
 │       ├── spiece_test_hi.model
-│       └── spiece_test_hi.vocab
-├── mt5_inference.py                    # mt5-specific inferencing script 
-├── preprocess.py                       # Creates train/test files in the format that is required by the dataloader + tokenizer training 
-├── requirements.txt                    # package requirements for these scripts      
-├── sc.py                               # For script converting before and after training for languages with unseen scripts 
-├── split_saving_mt5.py                 # Converting finetuned mt5 models to offline graphs (split into encoder and decoder)
-├── split_saving_tfb.py                 # Converting trained vanilla transformer models to offline graphs (split into encoder and decoder)
-├── spm_extractor.py                    # Used to extract vocab/merges from the spm models (Used for compatibility with Deployment goal)
-├── spm_model_generator.py              # Generating the spm models for the Marian Tokenizer (Used for compatibility with Deployment goal)
-├── student_labels.py                   # Generates distillation labels in batches using source-lang monolingual data
-├── supplementary                       # For supplementary checks 
-│   ├── check_dedup.py                  # Checking for Train/Test duplication
-│   ├── complete_model_tflite_conversion.py
-│   ├── tf_model.tflite                 # Converting tf models (includes models trained with the Huggingface API) to tflite. 
-│   └── tfb_inference.py                
-├── sweep.yaml                           # Yaml configuration file for running sweeps on Wandb
-├── tflite_inference_distilled_models.py # Sequential inferencing with the vanilla transformer models 
+│       └── spiece_test_hi.vocab 
 ├── LICENSE
 ├── README.md
 ├── SECURITY.md
-└── train.py                             # Training script (Supports Continued Pretraining of mt5, Marian Tokenizer Training)
+└── train.py                                # Training script (Supports Continued Pretraining of mt5, Marian Tokenizer Training)
 
 ```
 ## RNN-Suite
 ```
 Directory Structure: 
-├── RNN
-│   ├── Android/
+├── RNN-Suite
+│   ├── preprocess.py
 │   ├── preprocess.py
 │   ├── train.py
 │   ├── translate.py
@@ -119,7 +91,6 @@ Directory Structure:
 └── requirements.txt
 ```
 #### Environment Information
-
 Create a separate environment and install the necessary packages using the following command in the root path:
 
 ```
@@ -127,17 +98,11 @@ pip install -r requirements.txt
 ```
 
 #### Directory Structure 
-
- - **Android/** - Code and necessary files for building Android app. This can be directly imported into Android Studio.
  - **preprocess.py** - Code for preprocessing the input data for the models.
  - **train.py** - Code for training the models.
  - **translate.py** - Code for performing inference/testing on the trained models.
  - **utils/Model_architectures.py** - Code for defining the architecture of the Encoder and the Decoder blocks.
  - **utils/Model_types.py** - Code for building specific models for translation and partial mode.
-
-Apart from the above, the project creates additional intermediate folders during the course of its run to store model snapshots, optimized tflite model etc. 
-
-Such cases are clearly mentioned at relevant places in the documentation.
 
 #### Training Procedure
 Please refer to the readme in RNN root folder. 
