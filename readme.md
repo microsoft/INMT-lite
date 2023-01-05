@@ -1,4 +1,4 @@
-
+that wou
 <h1> <p align="center"> INMT-Lite </p></h1> 
 Interactive Neural Machine Translation-lite (INMT-Lite) is an assistive translation service that can be run on embedded devices like mobile phones and tablets that have low computation power, space and no internet connectivity. A detailed background of the compression techniques used to drive the assistive interfaces, the model's data and evaluation and the interface design can be found at the linked works. 
 
