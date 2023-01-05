@@ -22,12 +22,7 @@ Table of Contents
 INMT was developed to help expand the digital datasets for low resource languages and further support in developing other language tools for such low resource languages. The [sample model](https://microsoftapc-my.sharepoint.com/:f:/g/personal/taganu_microsoft_com/El5qZjb_teZJqsHyE5Cyh1kB2QCTMwot8E7wGYpWCi0BQA?e=zEo7bq) in this codebase is trained on  the first-ever Hindi-Gondi Parallel Corpus released by [CGNet Swara](http://cgnetswara.org/) which can be found [here](http://cgnetswara.org/hindi-gondi-corpus.html). 
 
 ## Models 
-
-You can access all our transformer-arch based models here; 
-
-- Gondi MT5               [Non-Compressed Model variant of 2.28GB]()
-- Gondi Quantized Model   [Compressed to 400MB]()
-- Gondi Distilled Model   [Compressed to 183MB]() 
+You can access all our transformer-arch based models by the scripts provided in the /models folder.
 
 ## Transformer-Suite
 This section delineates the instructions for Transformer Dev-Variants: For Model Setup, Training, Inference and Edge Deployment (Preparing the model for Android Compatible Training). Note that code on this repository is heavily adapted for code specified at [this](https://github.com/microsoft/Lightweight-Low-Resource-NMT) repository for generating light-weight, NMT Models. 
