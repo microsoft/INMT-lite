@@ -96,17 +96,17 @@ Create a separate environment and install the necessary packages using the follo
 ```
 pip install -r requirements.txt
 ```
-
-#### Directory Structure 
- - **preprocess.py** - Code for preprocessing the input data for the models.
- - **train.py** - Code for training the models.
- - **translate.py** - Code for performing inference/testing on the trained models.
- - **utils/Model_architectures.py** - Code for defining the architecture of the Encoder and the Decoder blocks.
- - **utils/Model_types.py** - Code for building specific models for translation and partial mode.
-
 #### Training Procedure
-Please refer to the readme in RNN root folder. 
+ ```
+ 
+ 1. **preprocess.py** - Code for preprocessing the input data for the models.
+ 2. **train.py** - Code for training the models.
+ 3. **translate.py** - Code for performing inference/testing on the trained models.
+ 4. **utils/Model_architectures.py** - Code for defining the architecture of the Encoder and the Decoder blocks.
+ 5. **utils/Model_types.py** - Code for building specific models for translation and partial mode.
 
+Please refer to the readme for a detailed overview in RNN root folder. 
+```
 #### Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
