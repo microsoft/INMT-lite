@@ -1,3 +1,4 @@
+that wou
 <h1> <p align="center"> INMT-Lite </p></h1> 
 Interactive Neural Machine Translation-lite (INMT-Lite) is an assistive translation service that can be run on embedded devices like mobile phones and tablets that have low computation power, space and no internet connectivity. A detailed background of the compression techniques used to drive the assistive interfaces, the model's data and evaluation and the interface design can be found at the linked works. 
 
@@ -22,7 +23,12 @@ Table of Contents
 INMT was developed to help expand the digital datasets for low resource languages and further support in developing other language tools for such low resource languages. The [sample model](https://microsoftapc-my.sharepoint.com/:f:/g/personal/taganu_microsoft_com/El5qZjb_teZJqsHyE5Cyh1kB2QCTMwot8E7wGYpWCi0BQA?e=zEo7bq) in this codebase is trained on  the first-ever Hindi-Gondi Parallel Corpus released by [CGNet Swara](http://cgnetswara.org/) which can be found [here](http://cgnetswara.org/hindi-gondi-corpus.html). 
 
 ## Models 
-You can access all our transformer-arch based models by the scripts provided in the /models folder.
+
+You can access all our transformer-arch based models here; 
+
+- Gondi MT5               [Non-Compressed Model variant of 2.28GB]()
+- Gondi Quantized Model   [Compressed to 400MB]()
+- Gondi Distilled Model   [Compressed to 183MB]() 
 
 ## Transformer-Suite
 This section delineates the instructions for Transformer Dev-Variants: For Model Setup, Training, Inference and Edge Deployment (Preparing the model for Android Compatible Training). Note that code on this repository is heavily adapted for code specified at [this](https://github.com/microsoft/Lightweight-Low-Resource-NMT) repository for generating light-weight, NMT Models. 
@@ -80,8 +86,7 @@ Note that for making the model Android-Compatible: We use an entirely different 
 ## RNN-Suite
 ```
 Directory Structure: 
-├── RNN-Suite
-│   ├── preprocess.py
+├── RNN
 │   ├── preprocess.py
 │   ├── train.py
 │   ├── translate.py
@@ -96,17 +101,17 @@ Create a separate environment and install the necessary packages using the follo
 ```
 pip install -r requirements.txt
 ```
-#### Training Procedure
- ```
- 
- 1. **preprocess.py** - Code for preprocessing the input data for the models.
- 2. **train.py** - Code for training the models.
- 3. **translate.py** - Code for performing inference/testing on the trained models.
- 4. **utils/Model_architectures.py** - Code for defining the architecture of the Encoder and the Decoder blocks.
- 5. **utils/Model_types.py** - Code for building specific models for translation and partial mode.
 
-Please refer to the readme for a detailed overview in RNN root folder. 
-```
+#### Directory Structure 
+ - **preprocess.py** - Code for preprocessing the input data for the models.
+ - **train.py** - Code for training the models.
+ - **translate.py** - Code for performing inference/testing on the trained models.
+ - **utils/Model_architectures.py** - Code for defining the architecture of the Encoder and the Decoder blocks.
+ - **utils/Model_types.py** - Code for building specific models for translation and partial mode.
+
+#### Training Procedure
+Please refer to the readme in RNN root folder. 
+
 #### Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
