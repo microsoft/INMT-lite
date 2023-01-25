@@ -26,7 +26,7 @@ if __name__ == '__main__':
     parser.add_argument("--vocab_path", type=str, default = None)
     parser.add_argument("--source_spm", type=str, default = None)
     parser.add_argument("--target_spm", type=str, default = None)
-    parser.add_argument("--dump_file_name", type=str, default = 'user-study-task-dump.json')
+    parser.add_argument("--dump_file_name", type=str, default = 'user-study-all-task-dump.json')
     parser.add_argument("--task_prefix", type = str, default = "")
     args = parser.parse_args()
 
