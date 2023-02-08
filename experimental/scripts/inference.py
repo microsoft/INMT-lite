@@ -1,6 +1,5 @@
-
 from transformers import ( PreTrainedTokenizerFast, TFMarianMTModel, MarianConfig, TFMT5ForConditionalGeneration, 
-T5Tokenizer,MBartForConditionalGeneration, MBart50TokenizerFast)
+T5Tokenizer,MBartForConditionalGeneration, MBart50TokenizerFast, MarianTokenizer)
 import argparse
 import tensorflow as tf
 import tqdm
@@ -22,7 +21,7 @@ def postprocess_text(preds, labels):
 
 def seq_online(model, tokenizer, src_samples, task_prefix, return_tensor):
     predictions = []
-    for sample in src_samples[:10]: 
+    for sample in src_samples: 
         sample = task_prefix + sample
         batch = tokenizer(sample, return_tensors=return_tensor, truncation=True, padding='max_length', max_length = 48) 
         output = model.generate(batch['input_ids'], max_new_tokens = 48)
@@ -114,13 +113,15 @@ if __name__ == '__main__':
     parser.add_argument("--model_arch", type=str, default = 'marian')
     parser.add_argument("--model_path", type=str, default = None)
     parser.add_argument("--vocab_path", type=str, default = None)
+    parser.add_argument("--source_spm", type=str, default = None)
+    parser.add_argument("--target_spm", type=str, default = None)
     parser.add_argument("--mode", type=str, default = "online")
     parser.add_argument("--task_prefix", type = str, default = "")
     parser.add_argument("--src_file", type=str)
     parser.add_argument("--encoder_interpreter_path", type=str, default = None)
     parser.add_argument("--decoder_interpreter_path", type=str, default = None)
-    parser.add_argument("--eml", type=str, default = 36)
-    parser.add_argument("--dml", type=str, default = 36)
+    parser.add_argument("--eml", type=str, default = 28)
+    parser.add_argument("--dml", type=str, default = 28)
         
     args = parser.parse_args()
     if "mt5" in args.model_arch: 
@@ -134,13 +135,13 @@ if __name__ == '__main__':
             model = MBartForConditionalGeneration.from_pretrained("facebook/mbart-large-50")
             args.return_tensor = 'pt'
     else:
-        tokenizer = PreTrainedTokenizerFast(tokenizer_file=args.vocab_path, bos_token = "<s>", eos_token = "</s>", pad_token = "<pad>", unk_token = "<unk>")
+        tokenizer = MarianTokenizer(vocab=args.vocab_path, source_spm = args.source_spm, target_spm = args.target_spm,bos_token = "<s>", eos_token = "</s>", pad_token = "<pad>", unk_token = "<unk>")
         if args.mode == 'online':
-            custom_tf_model = TFMarianMTModel.from_pretrained(args.model_path, from_pt=True)
-            custom_tf_model.save_pretrained(args.model_path)
-            model =  TFMarianMTModel.from_pretrained(pretrained_model_name_or_path = args.model_path, from_pt = True)    
+            # custom_tf_model = TFMarianMTModel.from_pretrained(args.model_path, from_pt=True)
+            # custom_tf_model.save_pretrained(args.model_path)
+            model =  TFMarianMTModel.from_pretrained(pretrained_model_name_or_path = args.model_path)    
         
-    src_samples = io.open(args.src_file, encoding='UTF-8').read().strip().split('\n')[:15]
+    src_samples = io.open(args.src_file, encoding='UTF-8').read().strip().split('\n')
 
     if args.mode == "online":       
         print(model.config)
