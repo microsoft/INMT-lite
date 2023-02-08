@@ -19,7 +19,7 @@ Table of Contents
   
 ## Data
 ### Hindi-Gondi Parallel Corpus
-INMT was developed to help expand the digital datasets for low resource languages and further support in developing other language tools for such low resource languages. The [sample model](https://microsoftapc-my.sharepoint.com/:f:/g/personal/taganu_microsoft_com/El5qZjb_teZJqsHyE5Cyh1kB2QCTMwot8E7wGYpWCi0BQA?e=zEo7bq) in this codebase is trained on  the first-ever Hindi-Gondi Parallel Corpus released by [CGNet Swara](http://cgnetswara.org/) which can be found [here](http://cgnetswara.org/hindi-gondi-corpus.html). 
+INMT was developed to help expand the digital datasets for low resource languages and further support in developing other language tools for such low resource languages. The models on this repository are trained on the first-ever Hindi-Gondi Parallel Corpus released by [CGNet Swara](http://cgnetswara.org/) which can be found [here](http://cgnetswara.org/hindi-gondi-corpus.html). 
 
 ## Models 
 You can access all our transformer-arch based models by the scripts provided in the /models folder.
