@@ -1,4 +1,4 @@
-from transformers import ( PreTrainedTokenizerFast, TFMarianMTModel, MarianConfig, TFMT5ForConditionalGeneration, 
+from transformers import ( PreTrainedTokenizerFast, TFMarianMTModel, MarianConfig, MT5ForConditionalGeneration, 
 T5Tokenizer,MBartForConditionalGeneration, MBart50TokenizerFast, MarianTokenizer)
 import argparse
 import tensorflow as tf
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     if "mt5" in args.model_arch: 
         tokenizer = T5Tokenizer.from_pretrained("google/mt5-small")
         if args.mode == 'online':
-            model = TFMT5ForConditionalGeneration.from_pretrained(args.model_path, from_pt = True)
+            model = MT5ForConditionalGeneration.from_pretrained(args.model_path)
             assert len(args.task_prefix) > 2, "Haven't passed a task prefix for mt5-type model. Please pass task prefix."
     elif "mbart" in args.model_arch:         
         tokenizer = MBart50TokenizerFast.from_pretrained("facebook/mbart-large-50", src_lang=args.src_lang, tgt_lang=args.tgt_lang)
@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
     if args.mode == "online":       
         print(model.config)
-        predictions = seq_online(model, tokenizer, src_samples, args.task_prefix, args.return_tensor)
+        predictions = online(model, tokenizer, src_samples, args.task_prefix, args.return_tensor)
 
     elif args.mode == "offline":
         predictions = offline(encoder_interpreter_path = args.encoder_interpreter_path, decoder_interpreter_path=args.decoder_interpreter_path, eml=args.eml, dml=args.dml, src_samples = src_samples, tokenizer=tokenizer, task_prefix = args.task_prefix)

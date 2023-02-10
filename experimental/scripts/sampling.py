@@ -1,8 +1,9 @@
-from transformers import (PreTrainedTokenizerFast, MarianMTModel, MarianConfig, TFMT5ForConditionalGeneration, MarianTokenizer,
+from transformers import (PreTrainedTokenizerFast, MarianMTModel, MarianConfig, MT5ForConditionalGeneration, MarianTokenizer,
 T5Tokenizer)
 from datasets import load_dataset
 import json
 import logging
+import random
 import argparse
 import tensorflow as tf
 import tqdm
@@ -32,7 +33,7 @@ if __name__ == '__main__':
 
     if "mt5" in args.model_arch: 
         tokenizer = T5Tokenizer.from_pretrained("google/mt5-small")
-        model = TFMT5ForConditionalGeneration.from_pretrained(args.model_path, from_pt = True)
+        model = MT5ForConditionalGeneration.from_pretrained(args.model_path)
         assert len(args.task_prefix) > 2, "Haven't passed a task prefix for mt5-type model. Please pass task prefix."
     else:
         # tokenizer = PreTrainedTokenizerFast(tokenizer_file=args.vocab_path, bos_token = "<s>", eos_token = "</s>", pad_token = "<pad>", unk_token = "<unk>")
@@ -40,7 +41,20 @@ if __name__ == '__main__':
         model = MarianMTModel.from_pretrained(args.model_path)
    
     logging.debug('Tokenizer and Model loaded')    
-    src_samples = read_jsonl(args.src_file)
+    try: 
+        src_samples = io.open(args.src_file).read().split('\n')
+        selected = []
+        for src in src_samples:
+            if len(src.split(' ')) >= 6 and len(src.split(' ')) < 15:
+                if src[-1] == '।' and not(any(chr.isdigit() for chr in src)):
+                    selected.append(src)
+        print(f'{len(selected)} sentences are applicable for translation.')
+        src_samples = random.sample(selected, 648)
+        with open('main_prompts.txt', mode = 'w') as file:
+            for src_sample in src_samples:
+                file.write(src_sample + '\n' )
+    except:
+        src_samples = read_jsonl(args.src_file)
     logging.debug('Applicable sentences chosen.')
     predictions = online(model, tokenizer, src_samples, args.task_prefix, args.return_tensor)
     if dump_json(src_samples, predictions, dump_file_name = args.dump_file_name): 
