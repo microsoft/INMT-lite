@@ -27,7 +27,7 @@ def seq_online(model, tokenizer, src_samples, task_prefix, return_tensor):
         batch = tokenizer(sample, return_tensors=return_tensor, truncation=True, padding='max_length', max_length = 48, add_special_tokens = True) 
         output = model.generate(batch['input_ids'], max_new_tokens = 48)
         predictions = tokenizer.decode(output[0], skip_special_tokens=True)
-
+        print(predictions)
     return predictions 
 
 def online(model, tokenizer, src_samples, task_prefix, return_tensor):
@@ -36,7 +36,6 @@ def online(model, tokenizer, src_samples, task_prefix, return_tensor):
     output = model.generate(**batch, max_new_tokens = 48)
 
     predictions = tokenizer.batch_decode(output, skip_special_tokens=True)
-    print(predictions)
 
     return predictions 
 
@@ -121,8 +120,8 @@ if __name__ == '__main__':
     parser.add_argument("--src_file", type=str)
     parser.add_argument("--encoder_interpreter_path", type=str, default = None)
     parser.add_argument("--decoder_interpreter_path", type=str, default = None)
-    parser.add_argument("--eml", type=str, default = 36)
-    parser.add_argument("--dml", type=str, default = 36)
+    parser.add_argument("--eml", type=str, default = 28)
+    parser.add_argument("--dml", type=str, default = 28)
         
     args = parser.parse_args()
     if "mt5" in args.model_arch: 
@@ -142,11 +141,11 @@ if __name__ == '__main__':
             custom_tf_model.save_pretrained(args.model_path)
             model =  TFMarianMTModel.from_pretrained(pretrained_model_name_or_path = args.model_path, from_pt = True)    
         
-    src_samples = io.open(args.src_file, encoding='UTF-8').read().strip().split('\n')[:15]
+    src_samples = io.open(args.src_file, encoding='UTF-8').read().strip().split('\n')
 
     if args.mode == "online":       
         print(model.config)
-        predictions = seq_online(model, tokenizer, src_samples, args.task_prefix, args.return_tensor)
+        predictions = online(model, tokenizer, src_samples, args.task_prefix, args.return_tensor)
 
     elif args.mode == "offline":
         predictions = offline(encoder_interpreter_path = args.encoder_interpreter_path, decoder_interpreter_path=args.decoder_interpreter_path, eml=args.eml, dml=args.dml, src_samples = src_samples, tokenizer=tokenizer, task_prefix = args.task_prefix)

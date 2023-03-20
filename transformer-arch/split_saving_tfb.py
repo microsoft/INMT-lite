@@ -12,9 +12,9 @@ def shape_list(x):
     dynamic = tf.shape(x)
     return [dynamic[i] if s is None else s for i, s in enumerate(static)]
 
-ENTIRE_MODEL_SAVE_PATH = "/home/t-hdiddee/INMT-Lite/final_models/Dm/marian_hi_gondi_distilled" # Latest
-SRC_LANG = 'hi'
-TGT_LANG = 'gondi'
+ENTIRE_MODEL_SAVE_PATH = "/home/t-hdiddee/ACL/en-bn" # Latest
+SRC_LANG = 'en'
+TGT_LANG = 'bn'
 ENCODER_MAX_LEN = 28
 DECODER_MAX_LEN = 28
 
@@ -58,7 +58,7 @@ if __name__=='__main__':
     print('Converting Encoder to TFlite')
     converter = tf.lite.TFLiteConverter.from_keras_model(encoder)
     print('Optimizing Encoder Size Reduction with the Keras Model')
-    # converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
     converter.target_spec.supported_ops = [ tf.lite.OpsSet.TFLITE_BUILTINS, tf.lite.OpsSet.SELECT_TF_OPS ]
     converter.experimental_enable_resource_variables = True
     tflite_model = converter.convert()    
@@ -71,7 +71,7 @@ if __name__=='__main__':
     print('Converting Decoder to TFlite')
     converter = tf.lite.TFLiteConverter.from_keras_model(decoder)
     print('Optimizing Decoder Size Reduction with the Keras Model')
-    # converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
     converter.target_spec.supported_ops = [ tf.lite.OpsSet.TFLITE_BUILTINS, tf.lite.OpsSet.SELECT_TF_OPS ]
     converter.experimental_enable_resource_variables = True
     tflite_model = converter.convert()    
