@@ -1,4 +1,5 @@
 import json 
+from utils import get_interface_mapping
 import numpy as np
 analysis_path = '/home/t-hdiddee/ACL/user-study/translations.dsv'
 with open(analysis_path,'r') as file: 
@@ -14,19 +15,7 @@ for record in records:
         wid, s, t, i, log = record.split('$')
     except: 
         print(s)
-    if 'Next Word BOW' in i: 
-        i = 'NBOW'
-    if 'Next Word Dropdown' in i: 
-        i = 'NWD' 
-    if 'BASELINE' in i: 
-        i = 'B'
-    if 'DYNAMIC_BOW' in i: 
-        i = 'DBOW' 
-    if 'STATIC_BOW' in i : 
-        i = 'SBOW' 
-    if 'POST_EDITED' in i : 
-        i = 'PE'
-
+    i = get_interface_mapping(i)
     if s in translation_cluster: 
         translation_cluster[s].append([i,t])
     else: 

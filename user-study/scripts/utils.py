@@ -53,5 +53,19 @@ def dump_json(src_samples, predictions, dump_file_name):
             outfile.write(json.dumps(item, ensure_ascii = False) + '\n')
         return True
     
-        
+def get_interface_mapping(task_name): 
+    if 'Next Word BOW' in task_name: 
+        return 'NWBOW'
+    if 'Next Word Dropdown' in task_name: 
+        return 'NWD' 
+    if 'BASELINE' in task_name: 
+        return 'B'
+    if 'DYNAMIC_BOW' in task_name:
+        return 'DBOW' 
+    if 'STATIC_BOW' in task_name: 
+        return 'SBOW' 
+    if 'POST_EDITED' in task_name: 
+        return 'PE'
+    return 'Invalid Interface Name.'
+
 
