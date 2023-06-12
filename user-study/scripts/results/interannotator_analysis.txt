@@ -1,30 +1,60 @@
-For interface B the pair wise inter-annotator agreement is 0.19919168591224012 and F1-Score is 0.377275902302409.
-For interface B the pair wise inter-annotator agreement is 0.0796677139864801 and F1-Score is 0.15677195365862867.
-For interface B the pair wise inter-annotator agreement is 0.04538534039005304 and F1-Score is 0.15751365541770757.
-For interface PE the pair wise inter-annotator agreement is 0.16880247459125064 and F1-Score is 0.33806880121143407.
-For interface PE the pair wise inter-annotator agreement is 0.11038451477896927 and F1-Score is 0.18849304107644468.
-For interface PE the pair wise inter-annotator agreement is 0.04123810903471925 and F1-Score is 0.1506961506961507.
-For interface SBOW the pair wise inter-annotator agreement is 0.18787532947474272 and F1-Score is 0.39927470190628084.
-For interface SBOW the pair wise inter-annotator agreement is 0.11557128170798758 and F1-Score is 0.19791690538217319.
-For interface SBOW the pair wise inter-annotator agreement is 0.046546802956746736 and F1-Score is 0.17462260301917584.
-For interface DBOW the pair wise inter-annotator agreement is 0.14020163031057153 and F1-Score is 0.30006961849067115.
-For interface DBOW the pair wise inter-annotator agreement is 0.13148271276595735 and F1-Score is 0.18611071336263765.
-For interface DBOW the pair wise inter-annotator agreement is 0.06782841823056307 and F1-Score is 0.19398264536533938.
-For interface NWBOW the pair wise inter-annotator agreement is 0.13974810834791607 and F1-Score is 0.2649248952664231.
-For interface NWBOW the pair wise inter-annotator agreement is 0.06245181187355431 and F1-Score is 0.11039762260414314.
-For interface NWBOW the pair wise inter-annotator agreement is 0.030584855905066877 and F1-Score is 0.09839111334956212.
-For interface NWD the pair wise inter-annotator agreement is 0.11998953303042559 and F1-Score is 0.20470083994804888.
-For interface NWD the pair wise inter-annotator agreement is 0.07811333084391336 and F1-Score is 0.10088277595289638.
-For interface NWD the pair wise inter-annotator agreement is 0.024640657084188833 and F1-Score is 0.07505126452494874.
 Average sentence quality for NWD is 61.758893280632414
 Average sentence quality for NWBOW is 73.99876084262701
 Average sentence quality for DBOW is 68.50671140939598
 Average sentence quality for SBOW is 77.46735751295337
 Average sentence quality for B is 80.25507246376812
 Average sentence quality for PE is 81.18192918192918
-Average standard deviation in interface quality assesement of B is 3.3995215311004783
-Average standard deviation in interface quality assesement of PE is 3.4976076555023923
-Average standard deviation in interface quality assesement of SBOW is 4.7272727272727275
-Average standard deviation in interface quality assesement of DBOW is 7.758373205741627
-Average standard deviation in interface quality assesement of NWD is 7.322966507177034
-Average standard deviation in interface quality assesement of NWBOW is 7.6746411483253585
+For interface B the pair wise inter-annotator agreement is 0.4220378642841949 and F1-Score is 0.7276149962717127.
+For interface B the pair wise inter-annotator agreement is 0.32416574990832425 and F1-Score is 0.5826744106501361.
+For interface B the pair wise inter-annotator agreement is 0.06654756587762412 and F1-Score is 0.42163163755642735.
+For interface PE the pair wise inter-annotator agreement is 0.42188919164396 and F1-Score is 0.7254070860713746.
+For interface PE the pair wise inter-annotator agreement is 0.3946624370733053 and F1-Score is 0.6482301199441644.
+For interface PE the pair wise inter-annotator agreement is 0.1340945836701698 and F1-Score is 0.49798619102416564.
+For interface SBOW the pair wise inter-annotator agreement is 0.4310698437558266 and F1-Score is 0.7008819771197202.
+For interface SBOW the pair wise inter-annotator agreement is 0.4355165428764348 and F1-Score is 0.6195213342627709.
+For interface SBOW the pair wise inter-annotator agreement is 0.15774323546344282 and F1-Score is 0.4951791403591957.
+For interface DBOW the pair wise inter-annotator agreement is 0.3258064516129031 and F1-Score is 0.5965457036896417.
+For interface DBOW the pair wise inter-annotator agreement is 0.38066209465752265 and F1-Score is 0.5153477816253279.
+For interface DBOW the pair wise inter-annotator agreement is 0.12202682736043091 and F1-Score is 0.40557292805437634.
+For interface NWBOW the pair wise inter-annotator agreement is 0.34734731444349487 and F1-Score is 0.6099810420550681.
+For interface NWBOW the pair wise inter-annotator agreement is 0.31869720505697596 and F1-Score is 0.47814694390163004.
+For interface NWBOW the pair wise inter-annotator agreement is 0.0747577681256264 and F1-Score is 0.33507027828078384.
+For interface NWD the pair wise inter-annotator agreement is 0.42106951247958946 and F1-Score is 0.5741516815102509.
+For interface NWD the pair wise inter-annotator agreement is 0.39270833333333344 and F1-Score is 0.5143480948337901.
+For interface NWD the pair wise inter-annotator agreement is 0.16710646776886207 and F1-Score is 0.32553382275151876.
+Average sentence quality for NWD is 61.758893280632414
+Average sentence quality for NWBOW is 73.99876084262701
+Average sentence quality for DBOW is 68.50671140939598
+Average sentence quality for SBOW is 77.46735751295337
+Average sentence quality for B is 80.25507246376812
+Average sentence quality for PE is 81.18192918192918
+Average sentence quality for NWD is 61.758893280632414
+Average sentence quality for NWBOW is 73.99876084262701
+Average sentence quality for DBOW is 68.50671140939598
+Average sentence quality for SBOW is 77.46735751295337
+Average sentence quality for B is 80.25507246376812
+Average sentence quality for PE is 81.18192918192918
+For interface B the pair wise inter-annotator agreement is 0.4220378642841949 and F1-Score is 0.7276149962717127.
+For interface B the pair wise inter-annotator agreement is 0.32416574990832425 and F1-Score is 0.5826744106501361.
+For interface B the pair wise inter-annotator agreement is 0.06654756587762412 and F1-Score is 0.42163163755642735.
+For interface PE the pair wise inter-annotator agreement is 0.42188919164396 and F1-Score is 0.7254070860713746.
+For interface PE the pair wise inter-annotator agreement is 0.3946624370733053 and F1-Score is 0.6482301199441644.
+For interface PE the pair wise inter-annotator agreement is 0.1340945836701698 and F1-Score is 0.49798619102416564.
+For interface SBOW the pair wise inter-annotator agreement is 0.4310698437558266 and F1-Score is 0.7008819771197202.
+For interface SBOW the pair wise inter-annotator agreement is 0.4355165428764348 and F1-Score is 0.6195213342627709.
+For interface SBOW the pair wise inter-annotator agreement is 0.15774323546344282 and F1-Score is 0.4951791403591957.
+For interface DBOW the pair wise inter-annotator agreement is 0.3258064516129031 and F1-Score is 0.5965457036896417.
+For interface DBOW the pair wise inter-annotator agreement is 0.38066209465752265 and F1-Score is 0.5153477816253279.
+For interface DBOW the pair wise inter-annotator agreement is 0.12202682736043091 and F1-Score is 0.40557292805437634.
+For interface NWBOW the pair wise inter-annotator agreement is 0.34734731444349487 and F1-Score is 0.6099810420550681.
+For interface NWBOW the pair wise inter-annotator agreement is 0.31869720505697596 and F1-Score is 0.47814694390163004.
+For interface NWBOW the pair wise inter-annotator agreement is 0.0747577681256264 and F1-Score is 0.33507027828078384.
+For interface NWD the pair wise inter-annotator agreement is 0.42106951247958946 and F1-Score is 0.5741516815102509.
+For interface NWD the pair wise inter-annotator agreement is 0.39270833333333344 and F1-Score is 0.5143480948337901.
+For interface NWD the pair wise inter-annotator agreement is 0.16710646776886207 and F1-Score is 0.32553382275151876.
+Average sentence quality for NWD is 61.758893280632414
+Average sentence quality for NWBOW is 73.99876084262701
+Average sentence quality for DBOW is 68.50671140939598
+Average sentence quality for SBOW is 77.46735751295337
+Average sentence quality for B is 80.25507246376812
+Average sentence quality for PE is 81.18192918192918

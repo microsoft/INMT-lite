@@ -17,9 +17,10 @@ for record in records:
         interface = get_interface_mapping(i)
         if interface is None: 
             continue
+        interface_cluster[interface].append((t,log))
     except: 
         print(s)
-    interface_cluster[interface].append((t,log))
+    
 
 for key in interface_cluster.keys():  
     print(f'Computing Keystroke stats for {key} which has {len(interface_cluster[key])} records.')
@@ -54,6 +55,9 @@ for key in interface_cluster.keys():
     print(f'For interface {key}: the average number of backspaces is {nobp/len(time_taken)}')
     print(f'For interface {key}: the average number of keystrokes is {tok/len(time_taken)}')
 
+    with open('./results/analysis_stats.json', 'a') as f:
+        obj = {key: [np.average(time_taken), nobp/len(time_taken), tok/len(time_taken)]}
+        f.write(json.dumps(obj, ensure_ascii=False) + '\n')
 
 for key in interface_cluster.keys():  
     if key not in ['B','PE']:
@@ -87,6 +91,9 @@ for key in interface_cluster.keys():
                         for sample in samples:
                             record = json.loads(sample)
                             total_suggestions += len(record['BOW'])    
+                if key == 'NWD':     ## Specific computation for SBOW which does not have the total number of suggestions shown
+                    total_suggestions = 648 
+                    tapped_suggestions = 28
                     
         print(f'{total_suggestions} are total suggestions.')
         # print(f'{tidx} are tapped indices from earlier method.')
@@ -96,11 +103,10 @@ for key in interface_cluster.keys():
         print('*******************************************************************************************************************')
     else: 
         print('Not Applicable for this interface.')            
+    with open('./results/analysis_stats.json', 'a') as f:
+        obj = {key: [(tapped_suggestions/total_suggestions)]}
+        f.write(json.dumps(obj, ensure_ascii=False) + '\n')
 
-    # with open('analysis_stats.json', 'a') as f:
-    #     obj = {key: [np.average(time_taken), nobp/len(time_taken), tok/len(time_taken), (tapped_suggestions/total_suggestions)]}
-    #     f.write(json.dumps(obj, ensure_ascii=False) + '\n')
-    
 
 
 
