@@ -9,9 +9,9 @@ with open(analysis_path,'r') as file:
 print(f'{len(records)} are the number of records being analysed.')
 
 def unpaired_compute_cohens_cappa(rater1, rater2):
-    k = cohen_kappa_score(rater1, rater2)
-    # f1 = f1_score(rater1, rater2, average = "weighted")
-    return k
+    # k = cohen_kappa_score(rater1, rater2)
+    f1 = f1_score(rater1, rater2, average = "weighted")
+    return f1
 
 def compute_cohens_cappa(paired_score_for_interface):
 
@@ -204,12 +204,12 @@ for sentence in sentencewise_clusters:
             nwd.append(scores[1])
         analyzed_samples += 1
     if len(b) != 0 and len(pe) != 0 and len(sbow) != 0 and len(nwbow) != 0 and len(dbow)!= 0 and len(nwd) != 0:  
-        B.append(int(np.average(b)))
-        PE.append(int(np.average(pe)))
-        SBOW.append(int(np.average(sbow)))
-        DBOW.append(int(np.average(dbow)))
-        NWBOW.append(int(np.average(nwbow)))
-        NWD.append(int(np.average(nwd)))
+        B.append(normalize_score_per_instruction(np.average(b)))
+        PE.append(normalize_score_per_instruction(np.average(pe)))
+        SBOW.append(normalize_score_per_instruction(np.average(sbow)))
+        DBOW.append(normalize_score_per_instruction(np.average(dbow)))
+        NWBOW.append(normalize_score_per_instruction(np.average(nwbow)))
+        NWD.append(normalize_score_per_instruction(np.average(nwd)))
         
         # B.append(max(b))
         # PE.append(max(pe))
@@ -218,17 +218,18 @@ for sentence in sentencewise_clusters:
         # NWBOW.append(max(nwbow))
         # NWD.append(max(nwd))
         
-        # B.append(min(b))
-        # PE.append(min(pe))
-        # SBOW.append(min(sbow))
-        # DBOW.append(min(dbow))
-        # NWBOW.append(min(nwbow))
-        # NWD.append(min(nwd))
+        # B.append(int(min(b)))
+        # PE.append(int(min(pe)))
+        # SBOW.append(int(min(sbow)))
+        # DBOW.append(int(min(dbow)))
+        # NWBOW.append(int(min(nwbow)))
+        # NWD.append(int(min(nwd)))
  
  
 
 print(len(B), len(PE), len(SBOW), len(DBOW), len(NWBOW), len(NWD))
-print(B)
+print(B[:10])
+print(PE[:10])
 pairwise_markers = [B, PE, SBOW, DBOW, NWBOW, NWD]
 pairwise_interface = []
 for interface_idx in range(len(pairwise_markers)):
