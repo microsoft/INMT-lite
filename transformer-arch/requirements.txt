@@ -67,7 +67,7 @@ rsa==4.7.2
 sacrebleu==2.3.1
 sacremoses==0.0.46
 sentencepiece==0.1.96
-sentry-sdk==1.4.3
+sentry-sdk==1.14.0
 shortuuid==1.0.1
 six==1.15.0
 sklearn==0.0
