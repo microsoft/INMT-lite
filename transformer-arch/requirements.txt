@@ -42,7 +42,7 @@ MarkupSafe==2.0.1
 Morfessor==2.0.6
 multidict==5.2.0
 multiprocess==0.70.12.2
-numpy==1.19.5
+numpy==1.22.0
 oauthlib==3.1.1
 opt-einsum==3.3.0
 packaging==21.0
