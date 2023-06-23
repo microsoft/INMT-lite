@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AssistiveEditText">
+        <attr name="source_sentence" format="string" />
+        <attr name="forward" format="integer" />
+        <attr name="depth" format="integer" />
+        <attr name="trigger_after_every" format="integer" />
+    </declare-styleable>
+</resources>

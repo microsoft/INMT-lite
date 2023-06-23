@@ -1,0 +1,14 @@
+# ninja log v5
+0	30	0	clean	ae137b1322abec9
+4	6000	693825386	CMakeFiles/android_sentencepiece.dir/com_github_google_sentencepiece_SentencePieceJNI.cpp.o	a48210e0d0b90975
+6018	10134	693825390	C:/Users/anuragshukla/AndroidStudioProjects/INMT/app/build/intermediates/cxx/Debug/3o4m4j2r/obj/armeabi-v7a/libandroid_sentencepiece.so	d39922928eaee409
+0	15	0	clean	ae137b1322abec9
+6	3578	693832767	CMakeFiles/android_sentencepiece.dir/com_github_google_sentencepiece_SentencePieceJNI.cpp.o	a48210e0d0b90975
+3578	4311	693832768	C:/Users/anuragshukla/AndroidStudioProjects/INMT/app/build/intermediates/cxx/Debug/3o4m4j2r/obj/armeabi-v7a/libandroid_sentencepiece.so	d39922928eaee409
+0	11	0	clean	ae137b1322abec9
+4	1165	693832838	CMakeFiles/android_sentencepiece.dir/com_github_google_sentencepiece_SentencePieceJNI.cpp.o	a48210e0d0b90975
+1165	2125	693832839	C:/Users/anuragshukla/AndroidStudioProjects/INMT/app/build/intermediates/cxx/Debug/3o4m4j2r/obj/armeabi-v7a/libandroid_sentencepiece.so	d39922928eaee409
+0	23	0	clean	ae137b1322abec9
+1	34	0	clean	ae137b1322abec9
+31	7701	693837236	CMakeFiles/android_sentencepiece.dir/com_github_google_sentencepiece_SentencePieceJNI.cpp.o	a48210e0d0b90975
+7701	9199	693837238	C:/Users/anuragshukla/AndroidStudioProjects/INMT/app/build/intermediates/cxx/Debug/3o4m4j2r/obj/armeabi-v7a/libandroid_sentencepiece.so	d39922928eaee409
